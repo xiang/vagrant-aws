@@ -55,6 +55,8 @@ module VagrantPlugins
               next
             end
 
+            b2.use ConnectRoute53
+            b2.use RegisterRoute53
             b2.use Provision
             b2.use SyncFolders
           end
@@ -141,6 +143,8 @@ module VagrantPlugins
               b1.use RunInstance # launch a new instance
             end
           end
+          b.use ConnectRoute53
+          b.use RegisterRoute53
         end
       end
 
@@ -169,6 +173,7 @@ module VagrantPlugins
       # The autoload farm
       action_root = Pathname.new(File.expand_path("../action", __FILE__))
       autoload :ConnectAWS, action_root.join("connect_aws")
+      autoload :ConnectRoute53, action_root.join("connect_route53")
       autoload :IsCreated, action_root.join("is_created")
       autoload :IsStopped, action_root.join("is_stopped")
       autoload :MessageAlreadyCreated, action_root.join("message_already_created")
@@ -176,6 +181,7 @@ module VagrantPlugins
       autoload :MessageWillNotDestroy, action_root.join("message_will_not_destroy")
       autoload :ReadSSHInfo, action_root.join("read_ssh_info")
       autoload :ReadState, action_root.join("read_state")
+      autoload :RegisterRoute53, action_root.join("register_route53")
       autoload :RunInstance, action_root.join("run_instance")
       autoload :StartInstance, action_root.join("start_instance")
       autoload :StopInstance, action_root.join("stop_instance")
