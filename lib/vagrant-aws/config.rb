@@ -138,6 +138,21 @@ module VagrantPlugins
       # @return [Boolean]
       attr_accessor :ebs_optimized
 
+      # The Route53 record name
+      #
+      # @return [String]
+      attr_accessor :route53_record_name
+
+      # The Route53 record type 
+      #
+      # @return [String]
+      attr_accessor :route53_record_type
+
+      # The Route53 record TTL
+      #
+      # @return [String]
+      attr_accessor :route53_record_ttl
+
       def initialize(region_specific=false)
         @access_key_id          = UNSET_VALUE
         @ami                    = UNSET_VALUE
@@ -304,6 +319,16 @@ module VagrantPlugins
 
         # default false
         @ebs_optimized = false if @ebs_optimized == UNSET_VALUE
+
+        # default to nil
+        @ssh_host_attribute = nil if @ssh_host_attribute == UNSET_VALUE
+
+        @route53_record_name = nil if @route53_record_name == UNSET_VALUE
+        if @route53_record_name and !@route53_record_name.end_with?('.')
+          @route53_record_name += '.'
+        end
+        @route53_record_type = nil if @route53_record_type == UNSET_VALUE
+        @route53_record_ttl  = nil if @route53_record_ttl  == UNSET_VALUE
 
         # Compile our region specific configurations only within
         # NON-REGION-SPECIFIC configurations.
